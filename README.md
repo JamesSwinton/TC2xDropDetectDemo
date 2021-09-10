@@ -2,17 +2,12 @@
 # Description
 This app is designed to demonstrate the Fall Detection capabilities of Zebras TC2x Mobile Device range. Once launched, the app will create a long-running foreground service which will detect any broadcasts from Zebras Fall Detection Service and log these events to a CSV file, along with a timestamp and the current device location, if available. The CSV file is located at /sdcard/Download/device-drop-log.csv.
 
-Please note that the Fall Detection service needs to be started first (via MX or StageNow).
+The Fall Detection service will be automatically started by the app using EMDK Profile Manager APIs.
 
 # Installing & Testing
 
  1. Update TC2x device BSP to at least 10-24-04
  2. Download / Compile & Install TC2XDropDetectDemo APK
- 3. Scan the below "enable_drop_detect" barcode in Stage Now application
-	 4. Verify service has started by looking in the notification tray for "Fall Detection Service Active"
-
-![enter image description here](https://downloads.jamesswinton.com/apks/Demos/FallDetectionDemo/Enable%20Fall%20Detection%20Service%20Stage%20Now%20Barcode.PNG)
-
  4. Start TC2XDropDetectDemo
 	 5. Verify service has started by looking in the notification tray for "Drop Detection Logging Active"
  5. Throw device ~0.5m into air & catch. This will trigger a fall detection alert

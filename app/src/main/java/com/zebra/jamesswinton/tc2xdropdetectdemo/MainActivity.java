@@ -5,9 +5,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.zebra.jamesswinton.profilemanagerwrapper.EMDKProfileManagerWrapper;
+import com.zebra.jamesswinton.profilemanagerwrapper.EMDKProfileManagerWrapper.OnXmlProcessedListener;
+import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.Constants;
 import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.DeviceUtils;
 import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.PermissionsHelper;
 import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.PermissionsHelper.OnPermissionsResultListener;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +31,28 @@ public class MainActivity extends AppCompatActivity {
 
     // Grant permissions & Start service
     mPermissionsHelper = new PermissionsHelper(this, () -> {
-      startService(new Intent(this, DropDetectionService.class));
-      finish();
+
+      // Start Drop detect Service via XML
+      EMDKProfileManagerWrapper emdkProfileManagerWrapper = new EMDKProfileManagerWrapper(this,
+          new OnXmlProcessedListener() {
+            @Override
+            public void onComplete() {
+              Toast.makeText(MainActivity.this ,"Drop Detect Sensor Activated",
+                  Toast.LENGTH_SHORT).show();
+
+              // Start Detection Service
+              startService(new Intent(MainActivity.this, DropDetectionService.class));
+              finish();
+            }
+
+            @Override
+            public void onError(String... errors) {
+              Toast.makeText(MainActivity.this,
+                  "Error starting Drop Detect Sensor: " + Arrays.toString(errors),
+                  Toast.LENGTH_SHORT).show();
+            }
+          });
+      emdkProfileManagerWrapper.applyXml(Constants.StartDropSensorXML);
     });
   }
 

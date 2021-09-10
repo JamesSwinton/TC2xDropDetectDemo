@@ -47,6 +47,6 @@ dependencies {
 
     // EMDK Profile Manager Lib
     implementation 'com.symbol:emdk:9.1.1'
-    implementation 'com.github.JamesSwinton:EMDKProfileManagerWrapper:1ce2b2d4c9'
+    implementation 'com.github.JamesSwinton:EMDKProfileManagerWrapper:dbe08b1f5b'
 
 }

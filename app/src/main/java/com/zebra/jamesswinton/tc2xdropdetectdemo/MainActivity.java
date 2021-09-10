@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
   // Permissions
   private PermissionsHelper mPermissionsHelper;
 
+  // Wrapper
+  private EMDKProfileManagerWrapper mEmdkProfileManagerWrapper;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     mPermissionsHelper = new PermissionsHelper(this, () -> {
 
       // Start Drop detect Service via XML
-      EMDKProfileManagerWrapper emdkProfileManagerWrapper = new EMDKProfileManagerWrapper(this,
+      mEmdkProfileManagerWrapper = new EMDKProfileManagerWrapper(this,
           new OnXmlProcessedListener() {
             @Override
             public void onComplete() {
@@ -52,8 +55,14 @@ public class MainActivity extends AppCompatActivity {
                   Toast.LENGTH_SHORT).show();
             }
           });
-      emdkProfileManagerWrapper.applyXml(Constants.StartDropSensorXML);
+      mEmdkProfileManagerWrapper.applyXml(Constants.StartDropSensorXML);
     });
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mEmdkProfileManagerWrapper.release();
   }
 
   @Override

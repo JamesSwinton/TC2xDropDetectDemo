@@ -18,7 +18,7 @@ The Fall Detection service will be automatically started by the app using EMDK P
 Alternatively, you can simulate a fall by sending the following ADB command:
 
 ```
-adb shell am startservice -n com.zebra.jamesswinton.tc2xdropdetectdemo/.DropDetectionService -a "com.zebra.ffdservice.FREE_FALL_STATE_CHANGED"
+adb shell am startservice -n com.zebra.jamesswinton.tc2xdropdetectdemo/.DropDetectionService -a "com.zebra.ffdservice.FREE_FALL_STATE_CHANGED" --ez FreeFallState true
 ```
 
 You do not need to start the service before sending this command. If you use this command the Service will launch once, log the drop and stop itself.

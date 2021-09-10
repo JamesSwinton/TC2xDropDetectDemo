@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.Constants;
 import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.FileUtils;
 import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.NotificationHelper;
 import com.zebra.jamesswinton.tc2xdropdetectdemo.utils.WriteToCSVAsync;
@@ -91,7 +92,10 @@ public class DropDetectionService extends Service implements WriteToCsvCallback 
       String intentAction = intent.getAction();
       if (intentAction != null) {
         if (intentAction.equals(FreeFallStateChangedAction)) {
-          getLocationAndLogDrop();
+          boolean dropDetected = intent.getBooleanExtra(Constants.SensorParameterExtra, false);
+          if (dropDetected) {
+            getLocationAndLogDrop();
+          }
         }
       }
     }
